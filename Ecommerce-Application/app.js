@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require ('morgan');
 const mongoose = require('mongoose');
+  
 
 require ("dotenv/config");
 const api = process.env.API_URL;
@@ -10,35 +11,23 @@ const api = process.env.API_URL;
 //Middleware
 app.use(bodyParser.json());
 app.use (morgan('tiny'));
-const productSchema = mongoose.Schema({
-    name:String,
-    image:String,
-    countInStock: Number
-})
-const Product = mongoose.model('Product',productSchema);
-app.get(`${api}/products`,(req,res)=>{
-    const product = {
-        id:1,
-        name:"hair dresser",
-        image:"some_url",
-    };
-})
-app.post(`${api}/products`,(req, res)=>{
-    const product = new Product({
-        name:req.body.name,
-        image:req.body.image,
-        countInStock: req.body.countInStock
-    })
-    product.save().then((createdProduct =>{
-        res.status(201).json(createdProduct)
-    })).catch((err)=>{
-        res.status(500).json({
-            error:err,
-            success:false
-        })
-    })
-    
-})
+
+
+
+const productsRoutes= require('./routers/products');
+const ordersRoutes= require('./routers/orders');
+const categoriesRoutes= require('./routers/categories');
+const usersRoutes= require('./routers/users');
+
+
+
+//routes
+app.use(`${api}/products`, productsRoutes);
+app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
+app.use(`${api}/categories`, categoriesRoutes)
+
+//database
 mongoose.connect(process.env.CONNECTION_STRING, {
  useNewUrlParser: true,
  useUnifiedTopology: true,
@@ -50,6 +39,8 @@ mongoose.connect(process.env.CONNECTION_STRING, {
      .catch((err)=>{
          console.log(err);
      })
+
+     //server
 app.listen(3000,()=>{
     console.log('server is running http://localhost:3000');
 })
