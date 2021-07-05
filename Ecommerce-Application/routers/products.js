@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const {Product}= require('../models/product');
+=======
+ const {Product} = require('../models/product');
+>>>>>>> 92f579e0db65bf0b578d83f129f9a4204cc63644
 const express = require('express');
 
 const router = express.Router();
