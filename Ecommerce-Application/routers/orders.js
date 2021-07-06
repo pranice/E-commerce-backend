@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const {Order}= require('../models/order')                   
-=======
-const{Order}= require('..models/order');                      
->>>>>>> 92f579e0db65bf0b578d83f129f9a4204cc63644
+const {Order}= require('../models/order');
 const express = require('express');
 const router = express.Router();
 
