@@ -48,9 +48,9 @@ const productSchema= mongoose.Schema({
         type:Number,
         default:0
     },
-    isFeaured:{
+    isFeatured:{
         type:Boolean,
-        default:false
+        default:false,
     },
     dateCreated:{
         type:Date,
